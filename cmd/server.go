@@ -1,7 +1,8 @@
-package main
+package main // import "github.com/jacekk/go-rest-api-playground"
 
 import (
 	"fmt"
+	"github.com/jacekk/go-rest-api-playground/internal/routing"
 	"github.com/joho/godotenv"
 	"os"
 )
@@ -12,5 +13,6 @@ func init() {
 }
 
 func main() {
-	fmt.Printf("Hello %s!", os.Getenv("NAME"))
+	fmt.Println("Server starting ...")
+	routing.InitRouter(os.Getenv("SERVER_PORT"))
 }
