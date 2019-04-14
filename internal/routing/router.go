@@ -9,7 +9,13 @@ import (
 func setupRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/ping", routes.PingRoute)
+	router.GET("/simple/json", routes.GetQuery)
+	router.GET("/simple/plain", routes.GetPlainText)
+	router.GET("/simple/uno/:dos/*tres", routes.GetParams)
+
+	router.POST("/simple/json", routes.PostJson)
+	router.POST("/simple/xml", routes.PostXml)
+	router.POST("/simple/yml", routes.PostYml)
 
 	return router
 }
