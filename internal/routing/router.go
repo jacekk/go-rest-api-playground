@@ -17,6 +17,8 @@ func setupRouter() *gin.Engine {
 	router.POST("/simple/xml", routes.PostXml)
 	router.POST("/simple/yml", routes.PostYml)
 
+	router.POST("/validate/user", routes.ValidateUser)
+
 	return router
 }
 
