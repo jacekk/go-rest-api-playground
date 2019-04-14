@@ -1,4 +1,7 @@
 .idea/
+.env
+
 cmd/**
 !cmd/*.go
-.env
+
+server
