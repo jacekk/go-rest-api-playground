@@ -9,15 +9,22 @@ import (
 func setupRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/simple/json", routes.GetQuery)
-	router.GET("/simple/plain", routes.GetPlainText)
-	router.GET("/simple/uno/:dos/*tres", routes.GetParams)
-
-	router.POST("/simple/json", routes.PostJson)
-	router.POST("/simple/xml", routes.PostXml)
-	router.POST("/simple/yml", routes.PostYml)
-
 	router.POST("/validate/user", routes.ValidateUser)
+
+	simple := router.Group("/simple")
+	{
+		simple.GET("/json", routes.GetQuery)
+		simple.GET("/simple/plain", routes.GetPlainText)
+		simple.GET("/simple/uno/:dos/*tres", routes.GetParams)
+
+		simple.POST("/simple/json", routes.PostJson)
+		simple.POST("/simple/xml", routes.PostXml)
+		simple.POST("/simple/yml", routes.PostYml)
+	}
+	posts := router.Group("/posts")
+	{
+		posts.GET("/", routes.GetPosts)
+	}
 
 	return router
 }
