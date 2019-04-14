@@ -5,11 +5,16 @@ import (
 	"github.com/jacekk/go-rest-api-playground/internal/routing"
 	"github.com/joho/godotenv"
 	"os"
+	"path/filepath"
+	"runtime"
 )
 
 func init() {
-	godotenv.Load("../.env")      // gitignored; precedence over this one:
-	godotenv.Load("../.env.dist") // defaults; under VCS
+	_, fileName, _, _ := runtime.Caller(0)
+	rootDir := filepath.Dir(fileName)
+
+	godotenv.Load(filepath.Join(rootDir, "../.env"))      // gitignored; precedence over this one:
+	godotenv.Load(filepath.Join(rootDir, "../.env.dist")) // defaults; under VCS
 }
 
 func main() {
