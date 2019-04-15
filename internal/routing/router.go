@@ -23,6 +23,7 @@ func setupRouter() *gin.Engine {
 	}
 	posts := router.Group("/posts")
 	{
+		posts.DELETE("/:id", routes.DeletePost)
 		posts.GET("/", routes.GetPosts)
 		posts.POST("/", routes.CreatePost)
 	}
