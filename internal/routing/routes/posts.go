@@ -20,6 +20,26 @@ func GetPosts(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, posts)
 }
 
+func GetPost(ctx *gin.Context) {
+	rawId := ctx.Param("id")
+	id, err := strconv.ParseInt(rawId, 10, 64)
+
+	if err != nil {
+		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
+		ctx.String(http.StatusBadRequest, msg)
+		return
+	}
+
+	post, err := database.GetPost(id)
+
+	if err != nil {
+		ctx.String(http.StatusNotFound, err.Error())
+		return
+	}
+
+	ctx.JSON(http.StatusOK, post)
+}
+
 func CreatePost(ctx *gin.Context) {
 	var post database.Post
 	ctx.ShouldBindJSON(&post)
