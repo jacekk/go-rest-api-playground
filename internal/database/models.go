@@ -6,12 +6,12 @@ import (
 
 type Post struct {
 	gorm.Model
-	Title string
-	Body  string
+	Title string `gorm:"NOT NULL" validate:"required|minLen:2|maxLen:255"`
+	Body  string `gorm:"type:text" validate:"required|minLen:10"`
 }
 
 type Comment struct {
 	gorm.Model
-	Author string
-	Body   string
+	Author string `gorm:"type:varchar(80)"`
+	Body   string `gorm:"type:text;NOT NULL"`
 }

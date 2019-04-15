@@ -24,6 +24,7 @@ func setupRouter() *gin.Engine {
 	posts := router.Group("/posts")
 	{
 		posts.GET("/", routes.GetPosts)
+		posts.POST("/", routes.CreatePost)
 	}
 
 	return router

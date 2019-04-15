@@ -6,3 +6,9 @@ func GetPosts() ([]Post, error) {
 
 	return posts, result.Error
 }
+
+func CreatePost(post Post) (Post, error) {
+	result := DB.Create(&post)
+
+	return post, result.Error
+}
