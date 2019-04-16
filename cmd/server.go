@@ -16,8 +16,8 @@ func init() {
 	_, fileName, _, _ := runtime.Caller(0)
 	projectDir = filepath.Dir(filepath.Dir(fileName))
 
-	godotenv.Load(filepath.Join(projectDir, ".env"))      // gitignored; precedence over this one:
-	godotenv.Load(filepath.Join(projectDir, ".env.dist")) // defaults; under VCS
+	godotenv.Load(filepath.Join(projectDir, ".env"))     // gitignored; precedence over `dist.env`, but not over system ENVs;
+	godotenv.Load(filepath.Join(projectDir, "dist.env")) // defaults; under VCS;
 }
 
 func main() {
