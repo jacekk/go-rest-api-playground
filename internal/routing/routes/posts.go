@@ -2,11 +2,12 @@ package routes // import "github.com/jacekk/go-rest-api-playground/internal/rout
 
 import (
 	"fmt"
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/validate"
 	"github.com/jacekk/go-rest-api-playground/internal/database"
-	"net/http"
-	"strconv"
 )
 
 func GetPosts(ctx *gin.Context) {
@@ -42,7 +43,7 @@ func GetPost(ctx *gin.Context) {
 
 func CreatePost(ctx *gin.Context) {
 	var post database.Post
-	ctx.ShouldBindJSON(&post)
+	ctx.BindJSON(&post)
 	validation := validate.Struct(post)
 
 	if !validation.Validate() {

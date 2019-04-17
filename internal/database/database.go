@@ -2,11 +2,12 @@ package database // import "github.com/jacekk/go-rest-api-playground/internal/da
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"os"
-	"path/filepath"
 )
 
 var DB *gorm.DB
@@ -29,9 +30,17 @@ func getDbConfig(projectDir string) (connType string, connData string) {
 	return
 }
 
+func runMigrations() {
+	DB.AutoMigrate(&Post{}, &Comment{}, &PostCategory{})
+	if !DB.HasTable(&UserAccount{}) {
+		DB.CreateTable(&UserAccount{})
+	}
+}
+
 func InitDB(projectDir string) *gorm.DB {
 	var err error
 	connType, connData := getDbConfig(projectDir)
+	fmt.Printf("Connecting to DB of type '%s' ... \n", connType)
 	DB, err = gorm.Open(connType, connData)
 
 	if err != nil {
@@ -39,7 +48,7 @@ func InitDB(projectDir string) *gorm.DB {
 		panic(fmt.Sprintf(msg, connType, err.Error()))
 	}
 
-	DB.AutoMigrate(&Post{}, &Comment{})
+	runMigrations()
 
 	return DB
 }

@@ -1,10 +1,12 @@
 package database // import "github.com/jacekk/go-rest-api-playground/internal/database
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func GetPost(id int64) (*Post, error) {
 	var post Post
-	result := DB.First(&post, id)
+	result := DB.Preload("Category").First(&post, id)
 
 	if result.Error != nil {
 		return nil, fmt.Errorf("Post with id '%d' was NOT found.", id)
@@ -15,7 +17,7 @@ func GetPost(id int64) (*Post, error) {
 
 func GetPosts() ([]Post, error) {
 	var posts []Post
-	result := DB.Find(&posts)
+	result := DB.Preload("Category").Find(&posts)
 
 	return posts, result.Error
 }

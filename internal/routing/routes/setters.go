@@ -2,10 +2,11 @@ package routes // import "github.com/jacekk/go-rest-api-playground/internal/rout
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func PostXml(ctx *gin.Context) {

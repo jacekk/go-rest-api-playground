@@ -1,9 +1,10 @@
 package routes // import "github.com/jacekk/go-rest-api-playground/internal/routing/routes"
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/validate"
-	"net/http"
 )
 
 type UserEntity struct {
@@ -14,7 +15,7 @@ type UserEntity struct {
 
 func ValidateUser(ctx *gin.Context) {
 	var entity UserEntity
-	ctx.ShouldBindJSON(&entity)
+	ctx.BindJSON(&entity)
 	validation := validate.Struct(entity)
 
 	if !validation.Validate() {

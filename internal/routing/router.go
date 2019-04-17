@@ -2,6 +2,7 @@ package routing // import "github.com/jacekk/go-rest-api-playground/internal/rou
 
 import (
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jacekk/go-rest-api-playground/internal/routing/routes"
 )
@@ -24,6 +25,7 @@ func setupRouter() *gin.Engine {
 	posts := router.Group("/posts")
 	{
 		posts.DELETE("/:id", routes.DeletePost)
+		posts.GET("", routes.GetPosts)
 		posts.GET("/:id", routes.GetPost)
 		posts.GET("/", routes.GetPosts)
 		posts.POST("/", routes.CreatePost)
@@ -34,5 +36,8 @@ func setupRouter() *gin.Engine {
 
 func InitRouter(port string) {
 	router := setupRouter()
-	router.Run(fmt.Sprintf(":%s", port))
+	err := router.Run(fmt.Sprintf(":%s", port))
+	if err != nil {
+		panic(err.Error())
+	}
 }
