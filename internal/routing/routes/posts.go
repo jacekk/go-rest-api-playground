@@ -24,7 +24,7 @@ func GetPosts(ctx *gin.Context) {
 
 func GetPost(ctx *gin.Context) {
 	rawId := ctx.Param("id")
-	id, err := strconv.ParseInt(rawId, 10, 64)
+	id, err := strconv.ParseUint(rawId, 10, 64)
 
 	if err != nil {
 		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)

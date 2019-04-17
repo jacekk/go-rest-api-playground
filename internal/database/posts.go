@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func GetPost(id int64) (*Post, error) {
+func GetPost(id uint64) (*Post, error) {
 	var post Post
 	result := DB.Preload("Category").First(&post, id)
 
@@ -19,6 +19,14 @@ func GetPosts(offset uint64, limit uint64) ([]Post, error) {
 	var posts []Post
 	// NOTE: offset and limit has to be before find
 	result := DB.Preload("Category").Offset(offset).Limit(limit).Find(&posts)
+
+	return posts, result.Error
+}
+
+func GetAuthorPosts(offset uint64, limit uint64, userId uint64) ([]Post, error) {
+	var posts []Post
+	where := &Post{AuthorID: uint(userId)}
+	result := DB.Preload("Category").Offset(offset).Limit(limit).Where(where).Find(&posts)
 
 	return posts, result.Error
 }

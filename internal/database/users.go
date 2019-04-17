@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func GetUser(id int64) (*UserAccount, error) {
+func GetUser(id uint64) (*UserAccount, error) {
 	var user UserAccount
 	result := DB.First(&user, id)
 
