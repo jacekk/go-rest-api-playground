@@ -11,7 +11,8 @@ import (
 )
 
 func GetPosts(ctx *gin.Context) {
-	posts, err := database.GetPosts()
+	offset, limit := GetPaginationFromQuery(ctx)
+	posts, err := database.GetPosts(offset, limit)
 
 	if err != nil {
 		ctx.String(http.StatusServiceUnavailable, err.Error())

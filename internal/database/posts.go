@@ -15,9 +15,10 @@ func GetPost(id int64) (*Post, error) {
 	return &post, nil
 }
 
-func GetPosts() ([]Post, error) {
+func GetPosts(offset uint64, limit uint64) ([]Post, error) {
 	var posts []Post
-	result := DB.Preload("Category").Find(&posts)
+	// NOTE: offset and limit has to be before find
+	result := DB.Preload("Category").Offset(offset).Limit(limit).Find(&posts)
 
 	return posts, result.Error
 }

@@ -15,9 +15,10 @@ func GetUser(id int64) (*UserAccount, error) {
 	return &user, nil
 }
 
-func GetUsers() ([]UserAccount, error) {
+func GetUsers(offset uint64, limit uint64) ([]UserAccount, error) {
 	var users []UserAccount
-	result := DB.Find(&users)
+	// NOTE: offset and limit has to be before find
+	result := DB.Offset(offset).Limit(limit).Find(&users)
 
 	return users, result.Error
 }

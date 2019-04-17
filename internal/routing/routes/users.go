@@ -11,7 +11,8 @@ import (
 )
 
 func GetUsers(ctx *gin.Context) {
-	entities, err := database.GetUsers()
+	offset, limit := GetPaginationFromQuery(ctx)
+	entities, err := database.GetUsers(offset, limit)
 
 	if err != nil {
 		ctx.String(http.StatusServiceUnavailable, err.Error())
