@@ -27,8 +27,15 @@ func setupRouter() *gin.Engine {
 		posts.DELETE("/:id", routes.DeletePost)
 		posts.GET("", routes.GetPosts)
 		posts.GET("/:id", routes.GetPost)
-		posts.GET("/", routes.GetPosts)
-		posts.POST("/", routes.CreatePost)
+		posts.POST("", routes.CreatePost)
+	}
+	users := router.Group("/users")
+	{
+		users.DELETE("/:id", routes.DeleteUser)
+		users.GET("", routes.GetUsers)
+		users.GET("/:id", routes.GetUser)
+		// users.GET("/:id/posts", routes.GetUserPosts)
+		users.POST("", routes.CreateUser)
 	}
 
 	return router

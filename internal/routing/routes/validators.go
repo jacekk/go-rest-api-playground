@@ -7,14 +7,14 @@ import (
 	"github.com/gookit/validate"
 )
 
-type UserEntity struct {
+type UserEntityInValidators struct {
 	Name  string `validate:"required|minLen:6"`
 	Age   int    `validate:"required|int|min:18|max:99"`
 	Email string `validate:"required|email"`
 }
 
 func ValidateUser(ctx *gin.Context) {
-	var entity UserEntity
+	var entity UserEntityInValidators
 	ctx.BindJSON(&entity)
 	validation := validate.Struct(entity)
 

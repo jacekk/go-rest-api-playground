@@ -8,11 +8,11 @@ import (
 
 type Post struct {
 	gorm.Model
-	// Author     UserAccount
-	// AuthorID   uint
-	Body       string `gorm:"type:text" validate:"required|minLen:10"`
+	Author     UserAccount `json:"-"`
+	AuthorID   uint        `gorm:"NOT NULL" validate:"required|uint"`
+	Body       string      `gorm:"type:text" validate:"required|minLen:10"`
 	Category   PostCategory
-	CategoryID uint   `json:"-" gorm:"NOT NULL" validate:"required"`
+	CategoryID uint   `json:"-" gorm:"NOT NULL" validate:"required|uint"`
 	Title      string `gorm:"NOT NULL" validate:"required|minLen:2|maxLen:255"`
 }
 
@@ -29,9 +29,10 @@ type Comment struct {
 
 type UserAccount struct {
 	gorm.Model
-	Email    string `gorm:"type:text;NOT NULL"`
-	Name     string `gorm:"type:varchar(50)"`
-	Password string `gorm:"type:varchar(100)"`
+	Email    string `gorm:"type:text;NOT NULL" validate:"required|email"`
+	Name     string `gorm:"type:varchar(50)" validate:"required|minLen:3|maxLen:50"`
+	Password string `gorm:"type:varchar(100)" validate:"required"` // @todo hide this field
+	Posts    []Post
 }
 
 func (p *Post) UnmarshalJSON(bytes []byte) error {
