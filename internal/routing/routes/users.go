@@ -83,7 +83,7 @@ func CreateUser(ctx *gin.Context) {
 	entity, err := database.CreateUser(user)
 
 	if err != nil {
-		ctx.String(http.StatusServiceUnavailable, err.Error())
+		ctx.String(http.StatusBadRequest, err.Error())
 		return
 	}
 

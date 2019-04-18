@@ -30,10 +30,7 @@ func (self *Post) UnmarshalJSON(bytes []byte) error {
 func (self *UserAccount) UnmarshalJSON(bytes []byte) error {
 	type UserAccountAlias UserAccount
 
-	user := &struct {
-		Password string
-		*UserAccountAlias
-	}{
+	user := &struct{ *UserAccountAlias }{
 		UserAccountAlias: (*UserAccountAlias)(self),
 	}
 	err := json.Unmarshal(bytes, &user)

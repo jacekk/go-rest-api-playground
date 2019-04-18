@@ -3,6 +3,8 @@ package database // import "github.com/jacekk/go-rest-api-playground/internal/da
 import (
 	"log"
 
+	"github.com/gookit/validate"
+	"github.com/jacekk/go-rest-api-playground/internal/helpers"
 	"github.com/jinzhu/gorm"
 	"github.com/raja/argon2pw"
 )
@@ -29,9 +31,20 @@ type Comment struct {
 
 type UserAccount struct {
 	gorm.Model
-	Email    string `gorm:"type:text;NOT NULL;unique_index" validate:"required|email"` // @todo check unique index
-	Name     string `gorm:"type:varchar(50)" validate:"required|minLen:3|maxLen:50"`
-	Password string `json:"-" gorm:"type:varchar(90)"`
+	Email        string `gorm:"type:text;NOT NULL;unique_index" validate:"required|email"`
+	Name         string `gorm:"type:varchar(50);unique_index" validate:"required|minLen:3|maxLen:50"`
+	Password     string `json:",omitempty" gorm:"-" validate:"required|minLen:8|maxLen:50|isPasswordValid"`
+	PasswordHash string `json:"-" gorm:"type:varchar(90)"`
+}
+
+func (self UserAccount) IsPasswordValid(value string) bool {
+	return helpers.IsPasswordStrong(value)
+}
+
+func (self UserAccount) Messages() map[string]string {
+	return validate.MS{
+		"isPasswordValid": "{field} has to contain at least one uppercase, one lowercase, one digit and one special char.",
+	}
 }
 
 func (self *UserAccount) EncryptPasswordIfSet(plainPass string) {
@@ -45,5 +58,5 @@ func (self *UserAccount) EncryptPasswordIfSet(plainPass string) {
 		log.Panicf("Hash generated returned error: %v \n", err)
 	}
 
-	self.Password = hashedPassword
+	self.PasswordHash = hashedPassword
 }

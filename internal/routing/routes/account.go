@@ -10,7 +10,7 @@ import (
 )
 
 type LoginRequest struct {
-	Name     string `validate:"required"`
+	Email    string `validate:"required|email"`
 	Password string `validate:"required"`
 }
 type LoginResponse struct {
@@ -18,13 +18,13 @@ type LoginResponse struct {
 }
 
 func isPassValid(request LoginRequest) bool {
-	entity, _ := database.GetUserByName(request.Name)
+	entity, _ := database.GetUserByEmail(request.Email)
 
 	if entity == nil {
 		return false
 	}
 
-	isValid, err := argon2pw.CompareHashWithPassword(entity.Password, request.Password)
+	isValid, err := argon2pw.CompareHashWithPassword(entity.PasswordHash, request.Password)
 
 	if err != nil {
 		return false
@@ -35,17 +35,21 @@ func isPassValid(request LoginRequest) bool {
 
 func Login(ctx *gin.Context) {
 	var request LoginRequest
-	var response LoginResponse
 	ctx.BindJSON(&request)
 	validation := validate.Struct(request)
-	status := http.StatusForbidden
 
-	if validation.Validate() {
-		isValid := isPassValid(request)
-		response.IsLoggedIn = isValid
-		if isValid {
-			status = http.StatusAccepted
-		}
+	if !validation.Validate() {
+		ctx.JSON(http.StatusUnprocessableEntity, validation.Errors)
+		return
+	}
+
+	var response LoginResponse
+	status := http.StatusForbidden
+	isValid := isPassValid(request)
+	response.IsLoggedIn = isValid
+
+	if isValid {
+		status = http.StatusAccepted
 	}
 
 	ctx.JSON(status, response)
