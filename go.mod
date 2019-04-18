@@ -10,6 +10,7 @@ require (
 	github.com/jinzhu/gorm v1.9.4
 	github.com/joho/godotenv v1.3.0
 	github.com/mattn/go-isatty v0.0.7 // indirect
+	github.com/raja/argon2pw v1.0.1
 	github.com/ugorji/go v1.1.4 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )
