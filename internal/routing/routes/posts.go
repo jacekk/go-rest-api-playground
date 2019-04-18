@@ -1,9 +1,7 @@
 package routes // import "github.com/jacekk/go-rest-api-playground/internal/routing/routes"
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/validate"
@@ -23,12 +21,10 @@ func GetPosts(ctx *gin.Context) {
 }
 
 func GetPost(ctx *gin.Context) {
-	rawId := ctx.Param("id")
-	id, err := strconv.ParseUint(rawId, 10, 64)
+	rawId, id, err := GetIdFromParam(ctx)
 
 	if err != nil {
-		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
-		ctx.String(http.StatusBadRequest, msg)
+		ReturnIdError(ctx, rawId)
 		return
 	}
 
@@ -63,12 +59,10 @@ func CreatePost(ctx *gin.Context) {
 }
 
 func DeletePost(ctx *gin.Context) {
-	rawId := ctx.Param("id")
-	id, err := strconv.ParseInt(rawId, 10, 64)
+	rawId, id, err := GetIdFromParam(ctx)
 
 	if err != nil {
-		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
-		ctx.String(http.StatusUnprocessableEntity, msg)
+		ReturnIdError(ctx, rawId)
 		return
 	}
 

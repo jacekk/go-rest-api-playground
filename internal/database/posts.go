@@ -37,7 +37,7 @@ func CreatePost(post Post) (Post, error) {
 	return post, result.Error
 }
 
-func DeletePostById(id int64) error {
+func DeletePostById(id uint64) error {
 	result := DB.Where("id = ?", id).Delete(&Post{})
 
 	if result.RowsAffected == 0 {

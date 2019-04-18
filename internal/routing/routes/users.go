@@ -3,7 +3,6 @@ package routes // import "github.com/jacekk/go-rest-api-playground/internal/rout
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/validate"
@@ -23,12 +22,10 @@ func GetUsers(ctx *gin.Context) {
 }
 
 func GetUser(ctx *gin.Context) {
-	rawId := ctx.Param("id")
-	id, err := strconv.ParseUint(rawId, 10, 64)
+	rawId, id, err := GetIdFromParam(ctx)
 
 	if err != nil {
-		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
-		ctx.String(http.StatusBadRequest, msg)
+		ReturnIdError(ctx, rawId)
 		return
 	}
 
@@ -43,12 +40,10 @@ func GetUser(ctx *gin.Context) {
 }
 
 func GetUserPosts(ctx *gin.Context) {
-	rawId := ctx.Param("id")
-	userId, err := strconv.ParseUint(rawId, 10, 64)
+	rawId, userId, err := GetIdFromParam(ctx)
 
 	if err != nil {
-		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
-		ctx.String(http.StatusBadRequest, msg)
+		ReturnIdError(ctx, rawId)
 		return
 	}
 
@@ -96,12 +91,10 @@ func CreateUser(ctx *gin.Context) {
 }
 
 func DeleteUser(ctx *gin.Context) {
-	rawId := ctx.Param("id")
-	id, err := strconv.ParseInt(rawId, 10, 64)
+	rawId, id, err := GetIdFromParam(ctx)
 
 	if err != nil {
-		msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
-		ctx.String(http.StatusUnprocessableEntity, msg)
+		ReturnIdError(ctx, rawId)
 		return
 	}
 
