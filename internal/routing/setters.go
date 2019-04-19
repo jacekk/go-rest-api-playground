@@ -45,7 +45,7 @@ func PostJson(ctx *gin.Context) {
 
 	tres, _ := strconv.ParseInt(dos.Bar, 10, 64)
 
-	reponse.Uno = fmt.Sprint(time.Now())
+	reponse.Uno = time.Now().Format(TIME_FORMAT)
 	reponse.Dos = dos
 	reponse.Tres = tres
 

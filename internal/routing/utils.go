@@ -8,9 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const DEFAULT_LIMIT = 10
-const DEFAULT_OFFSET = 0
-
 func ReturnIdError(ctx *gin.Context, rawId string) {
 	msg := fmt.Sprintf("Id '%s' is NOT valid.", rawId)
 	ctx.String(http.StatusBadRequest, msg)
@@ -24,8 +21,8 @@ func GetIdFromParam(ctx *gin.Context) (string, uint64, error) {
 }
 
 func GetPaginationFromQuery(ctx *gin.Context) (uint64, uint64) {
-	offsetRaw := ctx.DefaultQuery("offset", strconv.FormatInt(DEFAULT_OFFSET, 10))
-	limitRaw := ctx.DefaultQuery("limit", strconv.FormatInt(DEFAULT_LIMIT, 10))
+	offsetRaw := ctx.DefaultQuery("offset", strconv.FormatUint(DEFAULT_OFFSET, 10))
+	limitRaw := ctx.DefaultQuery("limit", strconv.FormatUint(DEFAULT_LIMIT, 10))
 	limit, limitErr := strconv.ParseUint(limitRaw, 10, 64)
 	offset, offsetErr := strconv.ParseUint(offsetRaw, 10, 64)
 
