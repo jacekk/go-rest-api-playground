@@ -2,12 +2,13 @@ package main // import "github.com/jacekk/go-rest-api-playground"
 
 import (
 	"fmt"
-	"github.com/jacekk/go-rest-api-playground/internal/database"
-	"github.com/jacekk/go-rest-api-playground/internal/routing"
-	"github.com/joho/godotenv"
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/jacekk/go-rest-api-playground/internal/database"
+	"github.com/jacekk/go-rest-api-playground/internal/routing"
+	"github.com/joho/godotenv"
 )
 
 var projectDir string

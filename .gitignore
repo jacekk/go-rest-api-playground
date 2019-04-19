@@ -3,7 +3,9 @@
 
 cmd/**
 !cmd/*.go
-storage/**
-!.gitkeep
-
 server
+
+docs/**
+storage/**
+
+!.gitkeep
