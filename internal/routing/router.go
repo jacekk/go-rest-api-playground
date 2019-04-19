@@ -16,6 +16,7 @@ func setupRouter() *gin.Engine {
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.POST("/login", routes.Login)
+	router.POST("/mail/send", routes.MailJson)
 	router.POST("/validate/dics", routes.ValidateDics)
 	router.POST("/validate/user", routes.ValidateUser)
 

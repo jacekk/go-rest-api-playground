@@ -10,6 +10,11 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: local*db-pass+123
+  mailhog:
+    image: mailhog/mailhog
+    ports: 
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
  
 volumes:
   db-data:
