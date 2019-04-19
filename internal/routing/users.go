@@ -1,4 +1,4 @@
-package routes // import "github.com/jacekk/go-rest-api-playground/internal/routing/routes"
+package routing // import "github.com/jacekk/go-rest-api-playground/internal/routing"
 
 import (
 	"fmt"
