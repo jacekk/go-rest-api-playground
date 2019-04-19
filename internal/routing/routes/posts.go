@@ -40,7 +40,7 @@ func GetPost(ctx *gin.Context) {
 
 func CreatePost(ctx *gin.Context) {
 	var post database.Post
-	ctx.BindJSON(&post)
+	ctx.ShouldBindJSON(&post)
 	validation := validate.Struct(post)
 
 	if !validation.Validate() {

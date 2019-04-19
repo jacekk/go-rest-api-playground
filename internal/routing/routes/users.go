@@ -72,7 +72,7 @@ func GetUserPosts(ctx *gin.Context) {
 
 func CreateUser(ctx *gin.Context) {
 	var user database.UserAccount
-	ctx.BindJSON(&user)
+	ctx.ShouldBindJSON(&user)
 	validation := validate.Struct(user)
 
 	if !validation.Validate() {

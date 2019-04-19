@@ -11,6 +11,7 @@ func setupRouter() *gin.Engine {
 	router := gin.Default()
 
 	router.POST("/validate/user", routes.ValidateUser)
+	router.POST("/validate/dics", routes.ValidateDics)
 	router.POST("/login", routes.Login)
 
 	simple := router.Group("/simple")

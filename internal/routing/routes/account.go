@@ -35,7 +35,7 @@ func isPassValid(request LoginRequest) bool {
 
 func Login(ctx *gin.Context) {
 	var request LoginRequest
-	ctx.BindJSON(&request)
+	ctx.ShouldBindJSON(&request)
 	validation := validate.Struct(request)
 
 	if !validation.Validate() {
