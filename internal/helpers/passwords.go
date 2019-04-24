@@ -3,11 +3,15 @@ package helpers // import "github.com/jacekk/go-rest-api-playground/internal/hel
 import (
 	"strings"
 	"unicode"
+	"unicode/utf8"
 )
 
 func IsPasswordStrong(pass string) bool {
+	const MIN_LEN = 8
 	var hasNumber, hasUpper, hasLower, hasSpecial bool
 	normalized := strings.TrimSpace(pass)
+	passLen := utf8.RuneCountInString(pass)
+	hasMinLen := passLen >= MIN_LEN
 
 	for _, char := range normalized {
 		switch {
@@ -22,5 +26,5 @@ func IsPasswordStrong(pass string) bool {
 		}
 	}
 
-	return hasNumber && hasUpper && hasLower && hasSpecial
+	return hasNumber && hasUpper && hasLower && hasSpecial && hasMinLen
 }
