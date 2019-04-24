@@ -10,7 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/gookit/validate v1.0.2
 	github.com/jinzhu/gorm v1.9.4
-	github.com/joho/godotenv v1.3.0 // indirect
+	github.com/joho/godotenv v1.3.0
 	github.com/jordan-wright/email v0.0.0-20190218024454-3ea4d25e7cf8
 	github.com/raja/argon2pw v1.0.1
 	github.com/stretchr/testify v1.3.0
