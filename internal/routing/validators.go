@@ -16,8 +16,8 @@ type UserEntityInValidators struct {
 type DictsValidators struct {
 	Uno    int    `validate:"required|in:1,2,3" `
 	Dos    int    `validate:"required|enum:4,5,6" `
-	Tres   string `validate:"required|in:ONE,TWO,THREE" `
-	Cuatro string `validate:"required|enum:four,five,six"`
+	Tres   string `filter:"trim|upper" validate:"required|in:ONE,TWO,THREE" `
+	Cuatro string `filter:"trim|lower" validate:"required|enum:four,five,six"`
 }
 
 type ValidatorResponse struct {
@@ -63,8 +63,6 @@ func ValidateDics(ctx *gin.Context) {
 	var entity DictsValidators
 	ctx.ShouldBindJSON(&entity)
 	validation := validate.Struct(entity)
-	validation.FilterRule("Tres", "trim|upper")
-	validation.FilterRule("Cuatro", "trim|lower")
 
 	if !validation.Validate() {
 		ctx.JSON(http.StatusUnprocessableEntity, validation.Errors)
