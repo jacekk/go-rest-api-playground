@@ -1,4 +1,4 @@
-package main // import "github.com/jacekk/go-rest-api-playground"
+package main
 
 import (
 	"fmt"

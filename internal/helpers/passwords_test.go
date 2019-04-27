@@ -1,4 +1,4 @@
-package helpers // import "github.com/jacekk/go-rest-api-playground/internal/helpers
+package helpers
 
 import (
 	"testing"

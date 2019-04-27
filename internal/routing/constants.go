@@ -1,4 +1,4 @@
-package routing // import "github.com/jacekk/go-rest-api-playground/internal/routing"
+package routing
 
 var DEFAULT_LIMIT uint64 = 10
 var DEFAULT_OFFSET uint64 = 0

@@ -1,4 +1,4 @@
-package database // import "github.com/jacekk/go-rest-api-playground/internal/database
+package database
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package mailling // import "github.com/jacekk/go-rest-api-playground/internal/mailling
+package mailling
 
 import (
 	"fmt"
